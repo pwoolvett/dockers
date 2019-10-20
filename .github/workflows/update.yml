@@ -33,7 +33,7 @@ jobs:
         echo "BUILD_DATE=$(cat BUILD_DATE)"
         echo "BASE_TAG=$(cat BASE_TAG)"
         
-    - name: Build and Push: base image
+    - name: Build and Push - Base Image
       run: |
         docker build \
           --file docker/poetry.Dockerfile \
