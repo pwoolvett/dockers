@@ -66,3 +66,21 @@ jobs:
           --username ${{ secrets.DOCKER_USERNAME }} \
           --password ${{ secrets.DOCKER_PASSWORD }}
         docker push pwoolvett/poetry:$(cat PSYCOPG2_TAG)
+
+    - name: Prepare - Pandas Image
+      run: |
+        echo $(python check_version.py pandas) > PANDAS_VERSION
+        echo "$(cat BASE_TAG)-pandas-$(cat PANDAS_VERSION)" > PANDAS_TAG
+
+    - name: Build and Push - Pandas Image
+      run: |
+        docker build \
+        --file docker/pandas.Dockerfile \
+        --build-arg BASE_TAG=$(cat BASE_TAG) \
+        --build-arg PANDAS_VERSION=$(cat PANDAS_VERSION) \
+        --tag pwoolvett/poetry:$(cat PANDAS_TAG) \
+        docker
+        docker login \
+          --username ${{ secrets.DOCKER_USERNAME }} \
+          --password ${{ secrets.DOCKER_PASSWORD }}
+        docker push pwoolvett/poetry:$(cat PANDAS_TAG)
