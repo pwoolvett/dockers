@@ -1,8 +1,6 @@
 name: Auto Update
 
-on:
-  schedule:
-    - cron:  '*/1 * * * *'
+on: push
 
 jobs:
 
@@ -16,6 +14,10 @@ jobs:
       with:
         python-version: '3.6'
         architecture: 'x64'
-    - name: Run a one-line script
+    - name: Check basic libs versions
         run: |
-          git log --format="%H" -n 1 > COMMIT_ID
+          echo $(/home/pwoolvett/Projects/dockers/check_version.py pip) > PIP_VERSION
+          echo $(/home/pwoolvett/Projects/dockers/check_version.py poetry) > POETRY_VERSION
+          echo "PYTHON_VERSION=$(cat PYTHON_VERSION)"
+          echo "PIP_VERSION=$(cat PIP_VERSION)"
+          echo "POETRY_VERSION=$(cat POETRY_VERSION)"
