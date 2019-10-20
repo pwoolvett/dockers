@@ -18,7 +18,7 @@ jobs:
       run: |
         echo $(python check_version.py pip) > PIP_VERSION
         echo $(python check_version.py poetry) > POETRY_VERSION
-        echo $(python python -c "from sys import version as v; print('.'.join(v.split(' ')[0].split('.')[:-1]))") > PYTHON_VERSION
+        echo $(python -c "from sys import version as v; print('.'.join(v.split(' ')[0].split('.')[:-1]))") > PYTHON_VERSION
         echo $(cat PYTHON_VERSION)-alpine > PYTHON_TAG
         echo "PYTHON_VERSION=$(cat PYTHON_VERSION)"
         echo "PYTHON_TAG=$(cat PYTHON_TAG)"
