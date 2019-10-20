@@ -45,6 +45,6 @@ jobs:
           --tag pwoolvett/poetry:$(cat BASE_TAG) \
           docker
         docker login \
-          --username ${{ secrets.DOCKER_USERNAME }}
+          --username ${{ secrets.DOCKER_USERNAME }} \
           --password ${{ secrets.DOCKER_PASSWORD }}
         docker push pwoolvett/poetry:$(cat BASE_TAG)
