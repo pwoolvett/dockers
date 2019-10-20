@@ -43,4 +43,4 @@ jobs:
           --build-arg VCS_REF=$(cat VCS_REF) \
           --build-arg BUILD_DATE=$(cat BUILD_DATE) \
           --tag pwoolvett/poetry:$/cat BASE_TAG) \
-          ${DOCKER_FOLDER}
+          docker
