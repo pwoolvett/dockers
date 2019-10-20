@@ -33,7 +33,7 @@ jobs:
         echo "BUILD_DATE=$(cat BUILD_DATE)"
         echo "BASE_TAG=$(cat BASE_TAG)"
         
-    - name: Build
+    - name: Build and Push: base image
       run: |
         docker build \
           --file docker/poetry.Dockerfile \
@@ -44,3 +44,4 @@ jobs:
           --build-arg BUILD_DATE=$(cat BUILD_DATE) \
           --tag pwoolvett/poetry:$(cat BASE_TAG) \
           docker
+        docker push pwoolvett/poetry:$(cat BASE_TAG)
