@@ -16,8 +16,8 @@ jobs:
         architecture: 'x64'
     - name: Check basic libs versions
       run: |
-        echo $(/home/pwoolvett/Projects/dockers/check_version.py pip) > PIP_VERSION
-        echo $(/home/pwoolvett/Projects/dockers/check_version.py poetry) > POETRY_VERSION
-        echo "PYTHON_VERSION=$(cat PYTHON_VERSION)"
+        echo $(check_version.py pip) > PIP_VERSION
+        echo $(check_version.py poetry) > POETRY_VERSION
+        echo "PYTHON_VERSION=$(PYTHON_VERSION)"
         echo "PIP_VERSION=$(cat PIP_VERSION)"
         echo "POETRY_VERSION=$(cat POETRY_VERSION)"
