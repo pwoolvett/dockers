@@ -50,19 +50,19 @@ jobs:
         docker push pwoolvett/poetry:$(cat BASE_TAG)
 
     - name: Prepare - Psycopg2 Image
-    run: |
-      echo $(python check_version.py psycopg2) > PSYCOPG2_VERSION
-      echo "$(cat BASE_TAG)-psycopg2-$(cat PSYCOPG2_VERSION)" > PSYCOPG2_TAG
+      run: |
+        echo $(python check_version.py psycopg2) > PSYCOPG2_VERSION
+        echo "$(cat BASE_TAG)-psycopg2-$(cat PSYCOPG2_VERSION)" > PSYCOPG2_TAG
 
     - name: Build and Push - Psycopg2 Image
-    run: |
-      docker build \
-      --file docker/psycopg2.Dockerfile \
-      --build-arg BASE_TAG=$(cat BASE_TAG) \
-      --build-arg PSYCOPG2_VERSION=$(cat PSYCOPG2_VERSION) \
-      --tag pwoolvett/poetry:$(cat PSYCOPG2_TAG) \
-      docker
-      docker login \
-        --username ${{ secrets.DOCKER_USERNAME }} \
-        --password ${{ secrets.DOCKER_PASSWORD }}
-      docker push pwoolvett/poetry:$(cat PSYCOPG2_TAG)
+      run: |
+        docker build \
+        --file docker/psycopg2.Dockerfile \
+        --build-arg BASE_TAG=$(cat BASE_TAG) \
+        --build-arg PSYCOPG2_VERSION=$(cat PSYCOPG2_VERSION) \
+        --tag pwoolvett/poetry:$(cat PSYCOPG2_TAG) \
+        docker
+        docker login \
+          --username ${{ secrets.DOCKER_USERNAME }} \
+          --password ${{ secrets.DOCKER_PASSWORD }}
+        docker push pwoolvett/poetry:$(cat PSYCOPG2_TAG)
