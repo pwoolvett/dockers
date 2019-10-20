@@ -16,10 +16,29 @@ jobs:
         architecture: 'x64'
     - name: Check basic libs versions
       run: |
-        ls -lah
         echo $(python check_version.py pip) > PIP_VERSION
         echo $(python check_version.py poetry) > POETRY_VERSION
         echo $(python --version) > PYTHON_VERSION
         echo "PYTHON_VERSION=$(cat PYTHON_VERSION)"
         echo "PIP_VERSION=$(cat PIP_VERSION)"
         echo "POETRY_VERSION=$(cat POETRY_VERSION)"
+    - name: Define meta
+      run: |
+        echo $(git rev-parse --short HEAD) > VCS_REF
+        echo $(date --utc +%FT%TZ) > BUILD_DATE
+        BASE_TAG=$(cat PYTHON_TAG)-$(cat PIP_VERSION)-$(cat POETRY_VERSION)
+        echo "VCS_REF=$(cat VCS_REF)"
+        echo "BUILD_DATE=$(cat BUILD_DATE)"
+        echo "BASE_TAG=$(cat BASE_TAG)"
+        
+    - name: Build
+      run: |
+        docker build \
+          --file docker/poetry.Dockerfile \
+          --build-arg PYTHON_TAG=$(cat PYTHON_VERSION)-alpine \
+          --build-arg PIP_VERSION=$(cat PIP_VERSION) \
+          --build-arg POETRY_VERSION=$(cat POETRY_VERSION) \
+          --build-arg VCS_REF=$(cat VCS_REF) \
+          --build-arg BUILD_DATE=$(cat BUILD_DATE) \
+          --tag pwoolvett/poetry:$BASE_TAG \
+          ${DOCKER_FOLDER}
