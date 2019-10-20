@@ -28,7 +28,7 @@ jobs:
       run: |
         echo $(git rev-parse --short HEAD) > VCS_REF
         echo $(date --utc +%FT%TZ) > BUILD_DATE
-        BASE_TAG=$(cat PYTHON_TAG)-$(cat PIP_VERSION)-$(cat POETRY_VERSION)
+        echo "$(cat PYTHON_TAG)-$(cat PIP_VERSION)-$(cat POETRY_VERSION)" > BASE_TAG
         echo "VCS_REF=$(cat VCS_REF)"
         echo "BUILD_DATE=$(cat BUILD_DATE)"
         echo "BASE_TAG=$(cat BASE_TAG)"
