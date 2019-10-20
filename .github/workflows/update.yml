@@ -19,6 +19,7 @@ jobs:
         ls -lah
         echo $(python check_version.py pip) > PIP_VERSION
         echo $(python check_version.py poetry) > POETRY_VERSION
-        echo "PYTHON_VERSION=$(PYTHON_VERSION)"
+        echo $(python --version) > PYTHON_VERSION
+        echo "PYTHON_VERSION=$(cat PYTHON_VERSION)"
         echo "PIP_VERSION=$(cat PIP_VERSION)"
         echo "POETRY_VERSION=$(cat POETRY_VERSION)"
